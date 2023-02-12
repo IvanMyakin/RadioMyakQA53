@@ -1,79 +1,112 @@
 package ru.netology.radioMyakQA53;
 
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RadioTest {
-
     Radio radio = new Radio();
 
     @Test
-    void shouldChangeStationTest() {
-
-        Radio radio = new Radio();
+    public void shouldChangeStationTest() {
+        assertEquals(0, radio.getCurrentStation());
         radio.setCurrentStation(5);
 
-        int expected = 5;
+        int expectid = 5;
         int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
+        Assertions.assertEquals(expectid, actual);
     }
 
     @Test
-    void shouldChangeStationNext() {
+    public void shouldSetStationUnderMinStationTest() {
+        radio.setCurrentStation(-1);
+        assertEquals(0, radio.getCurrentStation());
+    }
 
-        Radio radio = new Radio();
-        radio.setCurrentStation(0);
+    @Test
+    public void shouldSetStationOverMaxStationTest() {
+        radio.setCurrentStation(10);
+        assertEquals(0, radio.getCurrentStation());
+    }
+
+    @Test
+    public void shouldNextStationTest() {
+        radio.setCurrentStation(5);
         radio.nextStation();
-
-        int expected = 1;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
+        assertEquals(6, radio.getCurrentStation());
     }
 
     @Test
-    void shouldChangeStationPrev() {
-
-        Radio radio = new Radio();
+    public void shouldOverMaxStationTest() {
         radio.setCurrentStation(9);
-        radio.prevStation();
+        radio.nextStation();
+        assertEquals(0, radio.getCurrentStation());
+    }
 
-        int expected = 8;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
+
+    @Test
+    public void shouldPrevStationTest() {
+        radio.setCurrentStation(5);
+        radio.prevStation();
+        assertEquals(4, radio.getCurrentStation());
     }
 
     @Test
-    void shouldChangeVolumeTest() {
-
-        Radio radio = new Radio();
-        radio.setCurrentVolume(9);
+    public void shouldBelowMinStationTest() {
+        radio.setCurrentStation(0);
         radio.prevStation();
-
-        int expected = 9;
-        int actual = radio.getCurrentStation();
-        Assertions.assertEquals(expected, actual);
-    } @Test
-    void shouldChangeVolumeIncrease() {
-
-        Radio radio = new Radio();
-        radio.setCurrentVolume(8);
-        radio.increaseVolume();
-
-        int expected = 9;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expected, actual);
+        assertEquals(9, radio.getCurrentStation());
     }
 
-    void shouldChangeVolumeDecrease() {
 
-        Radio radio = new Radio();
+    @Test
+    public void shouldChangeVolumeTest() {
+        assertEquals(0, radio.getCurrentVolume());
+        radio.setCurrentVolume(5);
+        assertEquals(5, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldOverMoreMaxVolume() {
+        radio.setCurrentVolume(11);
+        radio.increaseVolume();
+        assertEquals(1, radio.getCurrentVolume());
+    }
+    @Test
+    public void shouldIncreaseVolumeTest() {
         radio.setCurrentVolume(9);
-        radio.decreaseVolume();
+        radio.increaseVolume();
+        assertEquals(10, radio.getCurrentVolume());
+    }
 
-        int expected = 8;
-        int actual = radio.getCurrentVolume();
-        Assertions.assertEquals(expected, actual);
+    @Test
+    public void shouldOverMaxVolumeTest() {
+        radio.setCurrentVolume(10);
+        radio.increaseVolume();
+        assertEquals(10, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldDecreaseVolumeTest() {
+        radio.setCurrentVolume(6);
+        radio.decreaseVolume();
+        assertEquals(5, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldBelowMinVolumeTest() {
+        radio.setCurrentVolume(0);
+        radio.decreaseVolume();
+        assertEquals(0, radio.getCurrentVolume());
+    }
+
+    @Test
+    public void shouldBelowMoreMinVolumeTest() {
+        radio.setCurrentVolume(-1);
+        radio.decreaseVolume();
+        assertEquals(0, radio.getCurrentVolume());
     }
 }
