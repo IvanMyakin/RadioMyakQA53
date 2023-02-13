@@ -50,14 +50,14 @@ public class RadioTest {
     @Test
     public void shouldPrevStationTest() {
         radio.setCurrentStation(5);
-        radio.prevStation();
+        radio.previousStation();
         assertEquals(4, radio.getCurrentStation());
     }
 
     @Test
     public void shouldBelowMinStationTest() {
         radio.setCurrentStation(0);
-        radio.prevStation();
+        radio.previousStation();
         assertEquals(9, radio.getCurrentStation());
     }
 
@@ -75,7 +75,6 @@ public class RadioTest {
         radio.increaseVolume();
         assertEquals(1, radio.getCurrentVolume());
     }
-
     @Test
     public void shouldIncreaseVolumeTest() {
         radio.setCurrentVolume(9);
