@@ -1,14 +1,23 @@
 package ru.netology.radioMyakQA53;
+
 public class Radio {
     private int currentStation;
-    private int minStation = 0;
-    private int maxStation = 9;
     private int currentVolume;
-    private int minVolume = 0;
+    private int maxStation;
+    private int minStation;
     private int maxVolume = 10;
+    private int minVolume = 0;
 
+    public Radio() {
+        this.maxStation = 9;
+    }
+
+    public Radio(int stationsCount) {
+        this.maxStation = stationsCount - 1;
+    }
 
     public int getCurrentStation() {
+
         return currentStation;
     }
 
@@ -36,6 +45,7 @@ public class Radio {
     }
 
     public int getCurrentVolume() {
+
         return currentVolume;
     }
 
